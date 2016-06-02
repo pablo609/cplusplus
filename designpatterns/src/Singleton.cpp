@@ -6,12 +6,15 @@
  */
 
 #include "Singleton.h"
+#include "SingletonOne.h"
+#include "SingletonTwo.h"
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 
 Singleton* Singleton::_instance = NULL;
 SingletonDestroyer Singleton::_destroyer;
+int Singleton::_type = 0;
 
 Singleton::Singleton() {
 	std::cout<<"Creating the first instance of the Singleton"<<std::endl;
@@ -22,11 +25,29 @@ Singleton* Singleton::getInstance() {
 	if(_instance == NULL)
 	{
 		srand(time(NULL));
-		_instance = new Singleton;
+
+		switch(_type)
+		{
+		case 1:
+			_instance = new SingletonOne;
+			break;
+		case 2:
+			_instance = new SingletonTwo;
+			break;
+		default:
+			_instance = new Singleton;
+			break;
+		}
+
 		_destroyer.setSingleton(_instance);
 	}
 
 	return _instance;
+}
+
+void Singleton::setType(int type)
+{
+	_type = type;
 }
 
 void Singleton::printId()

@@ -11,21 +11,23 @@
 class SingletonDestroyer;
 
 class Singleton {
+	friend SingletonDestroyer;
+
 public:
 	static Singleton* getInstance();
-	void printId();
+	static void setType(int type);
+	virtual void printId();
 
 private:
 	static Singleton* _instance;
 	static SingletonDestroyer _destroyer;
+	static int _type;
 	int _id;
 
-private:
+protected:
 	Singleton();
 	Singleton(Singleton& instance) {};
-	~Singleton();
-
-friend SingletonDestroyer;
+	virtual ~Singleton();
 };
 
 class SingletonDestroyer
