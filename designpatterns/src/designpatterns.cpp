@@ -13,7 +13,7 @@
 using namespace std;
 
 int main() {
-	cout<<"### Singleton Test ###"<< endl;
+	cout<<"#### Singleton Test ####"<< endl;
 	Singleton* test1;
 	Singleton* test2;
 	srand(time(NULL));
