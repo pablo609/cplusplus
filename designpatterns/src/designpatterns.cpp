@@ -11,10 +11,30 @@
 #include <ctime>
 #include "Singleton.h"
 #include "AbstractFactory.h"
+#include "Reader.h"
+#include <map>
 using namespace std;
 
 int main() {
 	srand(time(NULL));
+	cout<<"### Builder Test ###"<<endl;
+	map<string, string> input;
+	input["header"] = "Object header";
+	input["paragraph"] = "Object paragraph";
+	input["footer"] = "Object footer";
+
+	HtmlBuilder html;
+	TxtBuilder txt;
+	Reader reader;
+
+	reader.setBuilder(&html);
+	reader.construct(input);
+	html.getResult()->display();
+	delete html.getResult();
+	reader.setBuilder(&txt);
+	reader.construct(input);
+	txt.getResult()->display();
+	delete txt.getResult();
 
 	cout<<"### Abstract Factory Test ###"<<endl;
 	AbstractFactory* factory;
