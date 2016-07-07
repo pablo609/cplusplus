@@ -12,6 +12,8 @@
 #include "Singleton.h"
 #include "AbstractFactory.h"
 #include "Reader.h"
+#include "factorymethod/DocumentXML.h"
+#include "factorymethod/DocumentHTML.h"
 #include <map>
 using namespace std;
 
@@ -63,6 +65,19 @@ int main() {
 
 	test2 = Singleton::getInstance();
 	test2->printId();
+
+	cout<<"### Factory Method Test ###"<<endl;
+	Document* docHtml = Document::makeDocument(Document::HTML, "Document1.html");
+	Document* docXml = Document::makeDocument(Document::XML, "Document1.xml");
+
+	docHtml->write("New HTML data");
+	docXml->write("New XML data");
+
+	cout<<docHtml->getName()<<" - "<<docHtml->read()<<endl;
+	cout<<docXml->getName()<<" - "<<docXml->read()<<endl;
+
+	delete docHtml;
+	delete docXml;
 
 	return 0;
 }
